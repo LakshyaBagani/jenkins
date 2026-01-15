@@ -7,7 +7,9 @@ Behaviour.specify("a.task-link-no-confirm", "task-link", 0, function (el) {
   let callback = el.dataset.callback;
   let success = el.dataset.taskSuccess;
   let failure = el.dataset.taskFailure;
-  let href = el.href;
+  // Workaround so that `post` links don't have an href set till the click handler is registered
+  // Read from data attribute if available, otherwise use the element's href
+  let href = el.dataset.taskHref || el.href;
 
   if (callback !== undefined) {
     el.onclick = function (ev) {
